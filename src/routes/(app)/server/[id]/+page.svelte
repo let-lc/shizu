@@ -121,8 +121,8 @@
     <Card.Header>
       <Card.Title>Ping Record Table</Card.Title>
       <Card.Description>
-        All historical ping revRecords, click <span class="rounded-sm bg-accent px-2">show</span> to
-        view all the ping events from each revRecords.
+        All historical records, click <span class="rounded-sm bg-accent px-2">Show</span> to view all
+        the ping events from each record.
       </Card.Description>
     </Card.Header>
     <Card.Content>
