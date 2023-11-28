@@ -46,9 +46,27 @@
   </div>
 
   <Card.Root>
-    <Card.Header>
+    <Card.Header class="flex flex-row items-center justify-between">
       <Card.Title>Status</Card.Title>
-      <Card.Description></Card.Description>
+      <div class="flex items-center gap-x-1.5">
+        <span class="text-xs">Latest status: </span>
+        {#if revRecords.length > 0}
+          {@const percent =
+            revRecords[0].result.reduce((count, { success }) => count + +success, 0) /
+            revRecords[0].result.length}
+          {@const status = getStatusLevel(percent)}
+          {@const statusColor = getStatusColor(percent)}
+          <Badge
+            variant="outline"
+            style="--status-color: {statusColor}; --status-bg-color: {statusColor}40"
+            class="border-[--status-bg-color] text-[--status-color] hover:border-[--status-bg-color]"
+          >
+            {status}
+          </Badge>
+        {:else}
+          <Badge variant="outline">NOT FOUND</Badge>
+        {/if}
+      </div>
     </Card.Header>
     <Card.Content>
       <div class="flex h-8 flex-row-reverse flex-wrap justify-end gap-0.5">
@@ -111,8 +129,13 @@
         {/each}
       </div>
     </Card.Content>
-    <Card.Footer>
-      <p>Check {toString(data.server.pingCron, { verbose: true })}</p>
+    <Card.Footer class="flex items-center justify-between">
+      <span class="text-sm">Check {toString(data.server.pingCron, { verbose: true })}</span>
+      {#if revRecords.length > 0}
+        <span class="text-xs">
+          Latest run: <i>{dayjs(revRecords[0].ranAt).format('YYYY-MM-DD HH:mm:ss')}</i>
+        </span>
+      {/if}
     </Card.Footer>
   </Card.Root>
 
