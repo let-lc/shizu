@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { IconDatabaseExclamation } from '@tabler/icons-svelte';
   import { toString } from 'cronstrue';
   import dayjs from 'dayjs';
 
@@ -115,7 +116,9 @@
     </Card.Footer>
   </Card.Root>
 
-  <ResponseTimeChart data={data.records} />
+  {#if data.records.length}
+    <ResponseTimeChart data={data.records} />
+  {/if}
 
   <Card.Root>
     <Card.Header>
@@ -126,10 +129,17 @@
       </Card.Description>
     </Card.Header>
     <Card.Content>
-      {#if data.server.serverType === 'http'}
-        <HttpRecordDataTable records={ignoreSvelteTsError(revRecords)} />
-      {:else if data.server.serverType === 'tcp'}
-        <TcpRecordDataTable records={ignoreSvelteTsError(revRecords)} />
+      {#if data.records.length > 0}
+        {#if data.server.serverType === 'http'}
+          <HttpRecordDataTable records={ignoreSvelteTsError(revRecords)} />
+        {:else if data.server.serverType === 'tcp'}
+          <TcpRecordDataTable records={ignoreSvelteTsError(revRecords)} />
+        {/if}
+      {:else}
+        <p class="flex items-center justify-center gap-2 rounded-md border py-4">
+          <IconDatabaseExclamation class="h-5 w-5 text-amber-500" />
+          <span class="text-sm font-semibold">No record</span>
+        </p>
       {/if}
     </Card.Content>
   </Card.Root>
