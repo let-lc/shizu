@@ -52,8 +52,8 @@
         <span class="text-xs">Latest status: </span>
         {#if revRecords.length > 0}
           {@const percent =
-            revRecords[0].result.reduce((count, { success }) => count + +success, 0) /
-            revRecords[0].result.length}
+            revRecords[0].events.reduce((count, { success }) => count + +success, 0) /
+            revRecords[0].events.length}
           {@const status = getStatusLevel(percent)}
           {@const statusColor = getStatusColor(percent)}
           <Badge
@@ -73,10 +73,10 @@
         <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
         {#each { length: 128 } as _, i}
           {#if i < revRecords.length}
-            {@const { result, ranAt, time } = revRecords[i]}
-            {@const successCount = result.reduce((count, { success }) => count + +success, 0)}
-            {@const failCount = result.length - successCount}
-            {@const percent = successCount / result.length}
+            {@const { events, ranAt, time } = revRecords[i]}
+            {@const successCount = events.reduce((count, { success }) => count + +success, 0)}
+            {@const failCount = events.length - successCount}
+            {@const percent = successCount / events.length}
             {@const statusColor = getStatusColor(percent)}
             <HoverCard.Root openDelay={0} closeDelay={0} positioning={{ placement: 'top' }}>
               <HoverCard.Trigger>

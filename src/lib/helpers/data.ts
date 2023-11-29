@@ -104,8 +104,8 @@ export const getServerList = () => {
     records: (() => {
       return readPingRecord(s.id).map((record) => {
         return (
-          record.result.reduce((count, { success }) => count + +success, 0) /
-          record.result.length
+          record.events.reduce((count, { success }) => count + +success, 0) /
+          record.events.length
         );
       });
     })(),

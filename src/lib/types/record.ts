@@ -2,14 +2,7 @@ import { z } from 'zod';
 
 import { httpMethod } from './configuration';
 
-/**
- * TCP ping record type.
- */
-export const TcpPingRecord = z.object({
-  /**
-   * Server Type
-   */
-  type: z.literal('tcp'),
+export const PingRecord = z.object({
   /**
    * Ping event ran/started at.
    */
@@ -31,122 +24,115 @@ export const TcpPingRecord = z.object({
      */
     avg: z.number(),
   }),
-  /**
-   * Ping attempts result.
-   */
-  result: z.array(
-    z.discriminatedUnion('success', [
-      z.object({
-        /**
-         * Ping is successful.
-         */
-        success: z.literal(true),
-        /**
-         * Ping round-trip time.
-         */
-        time: z.number(),
-      }),
-      z.object({
-        /**
-         * Ping is successful.
-         */
-        success: z.literal(false),
-        /**
-         * Ping error.
-         */
-        error: z.object({
-          /**
-           * Error name.
-           */
-          name: z.string(),
-          /**
-           * Error message.
-           */
-          message: z.string(),
-        }),
-      }),
-    ])
-  ),
 });
+
+/**
+ * TCP ping record type.
+ */
+export const TcpPingRecord = z
+  .object({
+    /**
+     * Server Type
+     */
+    type: z.literal('tcp'),
+    /**
+     * Ping events.
+     */
+    events: z.array(
+      z.discriminatedUnion('success', [
+        z.object({
+          /**
+           * Ping is successful.
+           */
+          success: z.literal(true),
+          /**
+           * Ping round-trip time.
+           */
+          time: z.number(),
+        }),
+        z.object({
+          /**
+           * Ping is successful.
+           */
+          success: z.literal(false),
+          /**
+           * Ping error.
+           */
+          error: z.object({
+            /**
+             * Error name.
+             */
+            name: z.string(),
+            /**
+             * Error message.
+             */
+            message: z.string(),
+          }),
+        }),
+      ])
+    ),
+  })
+  .merge(PingRecord);
 
 /**
  * HTTP request record type.
  */
-export const HttpPingRecord = z.object({
-  /**
-   * Server Type
-   */
-  type: z.literal('http'),
-  /**
-   * Request event ran/started at.
-   */
-  ranAt: z.number(),
-  /**
-   * HTTP request method.
-   */
-  method: httpMethod,
-  /**
-   * HTTP request response time.
-   */
-  time: z.object({
+export const HttpPingRecord = z
+  .object({
     /**
-     * Minimum response time.
+     * Server Type
      */
-    min: z.number(),
+    type: z.literal('http'),
     /**
-     * Maximum response time.
+     * HTTP request method.
      */
-    max: z.number(),
+    method: httpMethod,
     /**
-     * Average resposne time.
+     * Request events.
      */
-    avg: z.number(),
-  }),
-  /**
-   * Request attempts result.
-   */
-  result: z.array(
-    z.discriminatedUnion('success', [
-      z.object({
-        /**
-         * Request is successful.
-         */
-        success: z.literal(true),
-        /**
-         * Response status.
-         */
-        status: z.number(),
-        /**
-         * Response time.
-         */
-        time: z.number(),
-      }),
-      z.object({
-        /**
-         * Request is successful.
-         */
-        success: z.literal(false),
-        /**
-         * Response status.
-         */
-        status: z.number().nullable(),
-        /**
-         * Response error.
-         */
-        error: z.object({
+    events: z.array(
+      z.discriminatedUnion('success', [
+        z.object({
           /**
-           * Error name.
+           * Request is successful.
            */
-          name: z.string(),
+          success: z.literal(true),
           /**
-           * Error message.
+           * Response status.
            */
-          message: z.string(),
+          status: z.number(),
+          /**
+           * Response time.
+           */
+          time: z.number(),
         }),
-      }),
-    ])
-  ),
-});
+        z.object({
+          /**
+           * Request is successful.
+           */
+          success: z.literal(false),
+          /**
+           * Response status.
+           */
+          status: z.number().nullable(),
+          /**
+           * Response error.
+           */
+          error: z.object({
+            /**
+             * Error name.
+             */
+            name: z.string(),
+            /**
+             * Error message.
+             */
+            message: z.string(),
+          }),
+        }),
+      ])
+    ),
+  })
+  .merge(PingRecord);
 
 export type TcpPingRecordType = z.infer<typeof TcpPingRecord>;
 export type HttpPingRecordType = z.infer<typeof HttpPingRecord>;

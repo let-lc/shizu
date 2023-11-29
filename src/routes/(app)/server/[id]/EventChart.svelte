@@ -4,7 +4,7 @@
 
   import type { HttpPingRecordType, TcpPingRecordType } from '$lib/types';
 
-  export let data: HttpPingRecordType['result'] | TcpPingRecordType['result'];
+  export let data: HttpPingRecordType['events'] | TcpPingRecordType['events'];
 
   let canvas: HTMLCanvasElement;
 
@@ -67,7 +67,7 @@
           labels,
           datasets: [
             {
-              label: 'Results',
+              label: 'Events',
               data: values,
               backgroundColor,
               borderColor,
