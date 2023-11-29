@@ -4,8 +4,10 @@ import { join } from 'path';
 import {
   Configuration,
   type ConfigurationType,
+  HttpPingRecord,
   type HttpPingRecordType,
   type ServerConfigType,
+  TcpPingRecord,
   type TcpPingRecordType,
   type ValueFromType,
 } from '$lib/types';
@@ -187,7 +189,30 @@ export const readPingRecord = (
   id: string
 ): Array<TcpPingRecordType> | Array<HttpPingRecordType> => {
   const recordFile = join(DATA_FOLDER, id, 'record.json');
-  return existsSync(recordFile)
-    ? JSON.parse(readFileSync(recordFile).toString())
-    : [];
+
+  if (existsSync(recordFile)) {
+    const record = JSON.parse(readFileSync(recordFile).toString());
+    if (Array.isArray(record)) {
+      if (record.length > 0) {
+        switch (record[0]?.type) {
+          case 'http': {
+            record.forEach((item) => HttpPingRecord.parse(item));
+            return record;
+          }
+          case 'tcp': {
+            record.forEach((item) => TcpPingRecord.parse(item));
+            return record;
+          }
+          default:
+            throw new Error(`Invalid record type: "${record[0]?.type}"`);
+        }
+      } else {
+        return [];
+      }
+    } else {
+      throw new Error('Invalid record data.');
+    }
+  } else {
+    return [];
+  }
 };
