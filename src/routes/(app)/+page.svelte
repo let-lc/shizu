@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Badge } from '$lib/components/ui/badge';
   import * as Card from '$lib/components/ui/card';
+  import { SERVER_TYPE_COLOR } from '$lib/constants';
   import { cn, getStatusColor } from '$lib/utils';
 
   import type { PageServerData } from './$types';
@@ -15,12 +16,25 @@
 
 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
   {#each data.servers as server}
+    {@const serverColor = SERVER_TYPE_COLOR?.[server.serverType]}
     <Card.Root>
       <Card.Header>
-        <Card.Title>
-          <Badge>{server.serverType.toUpperCase()}</Badge>
-          <a href={`/server/${server.id}`} class="truncate pl-0.5 hover:underline">{server.name}</a>
-        </Card.Title>
+        <div class="flex items-center gap-x-1">
+          <Badge
+            style="--server-color: {serverColor}"
+            class={cn(
+              server.serverType in SERVER_TYPE_COLOR &&
+                'bg-[--server-color] hover:bg-[--server-color] hover:brightness-95 dark:hover:brightness-110'
+            )}
+          >
+            {server.serverType.toUpperCase()}
+          </Badge>
+          <Card.Title>
+            <a href={`/server/${server.id}`} class="truncate pl-0.5 hover:underline">
+              {server.name}
+            </a>
+          </Card.Title>
+        </div>
         <Card.Description class="truncate">
           ID: {server.id}
         </Card.Description>

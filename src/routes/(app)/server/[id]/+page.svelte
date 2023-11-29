@@ -9,7 +9,8 @@
   import { Button } from '$lib/components/ui/button';
   import * as Card from '$lib/components/ui/card';
   import * as HoverCard from '$lib/components/ui/hover-card';
-  import { getStatusColor, getStatusLevel, ignoreSvelteTsError } from '$lib/utils';
+  import { SERVER_TYPE_COLOR } from '$lib/constants';
+  import { cn, getStatusColor, getStatusLevel, ignoreSvelteTsError } from '$lib/utils';
 
   import type { PageServerData } from './$types';
   import HttpRecordDataTable from './HttpRecordDataTable.svelte';
@@ -18,6 +19,7 @@
 
   export let data: PageServerData;
   const revRecords = data.records.slice().reverse();
+  const serverColor = SERVER_TYPE_COLOR?.[data.server.serverType];
 </script>
 
 <svelte:head>
@@ -37,7 +39,13 @@
 
 <div class="space-y-4">
   <div class="my-4 flex gap-x-2">
-    <Badge>
+    <Badge
+      style="--server-color: {serverColor}"
+      class={cn(
+        data.server.serverType in SERVER_TYPE_COLOR &&
+          'bg-[--server-color] hover:bg-[--server-color] hover:brightness-95 dark:hover:brightness-110'
+      )}
+    >
       {data.server.serverType.toUpperCase()}
     </Badge>
     <Badge variant="secondary">

@@ -1,4 +1,4 @@
-import { STATUS_COLOR_LEVEL } from '$lib/constants';
+import { STATUS_COLOR } from '$lib/constants';
 import type { StatusLevelType } from '$lib/types/level';
 
 export const getStatusLevel = (percent: number): StatusLevelType => {
@@ -15,13 +15,13 @@ export const getStatusLevel = (percent: number): StatusLevelType => {
 
 export const getStatusColor = (percent: number) => {
   if (percent === 1) {
-    return STATUS_COLOR_LEVEL.OPERATIONAL;
+    return STATUS_COLOR.OPERATIONAL;
   } else if (percent >= 0.9) {
-    return STATUS_COLOR_LEVEL.ACCEPTABLE;
+    return STATUS_COLOR.ACCEPTABLE;
   } else if (percent >= 0.25) {
-    return STATUS_COLOR_LEVEL.UNSTABLE;
+    return STATUS_COLOR.UNSTABLE;
   } else {
-    return STATUS_COLOR_LEVEL.CRITICAL;
+    return STATUS_COLOR.CRITICAL;
   }
 };
 
