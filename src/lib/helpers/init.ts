@@ -26,3 +26,5 @@ export const initialization = () => {
     mkdirSync(GH_WORKFLOW_FOLDER, { recursive: true });
   }
 };
+
+initialization();
