@@ -78,7 +78,7 @@
       </div>
     </Card.Header>
     <Card.Content>
-      <div class="flex h-8 flex-row-reverse flex-wrap justify-end gap-0.5">
+      <div class="flex h-8 flex-row-reverse flex-wrap justify-end gap-0.5 overflow-hidden">
         <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
         {#each { length: 128 } as _, i}
           {#if i < revRecords.length}
