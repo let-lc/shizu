@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { superValidate, superValidateSync } from 'sveltekit-superforms/server';
 
+import { dev } from '$app/environment';
 import {
   buildWorkflowExist,
   createBuildWorkflow,
@@ -8,12 +9,12 @@ import {
   removeBuildWorkflow,
 } from '$lib/helpers/data';
 import { configFormSchema } from '$lib/types';
-import { building, dev } from '$app/environment';
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const ssr = dev || !building;
-export const csr = dev || !building;
+export const prerender = false;
+export const ssr = dev;
+export const csr = dev;
 
 export const load: PageServerLoad = async () => {
   const config = readConfig();

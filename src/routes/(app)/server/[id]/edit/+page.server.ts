@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 
-import { building, dev } from '$app/environment';
+import { dev } from '$app/environment';
 import {
   createServerWorkflow,
   deleteServerById,
@@ -14,8 +14,9 @@ import { httpFormSchema, tcpFormSchema } from '$lib/types';
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const ssr = dev || !building;
-// export const csr = dev || !building;
+export const prerender = false;
+export const ssr = dev;
+export const csr = dev;
 
 export const load: PageServerLoad = async (event) => {
   const server = getServerById(event.params?.id);

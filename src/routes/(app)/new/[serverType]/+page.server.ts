@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import type { SuperValidated } from 'sveltekit-superforms';
 import { superValidate, superValidateSync } from 'sveltekit-superforms/server';
 
-import { building, dev } from '$app/environment';
+import { dev } from '$app/environment';
 import { addNewServer } from '$lib/helpers/data';
 import {
   type HttpFormSchema,
@@ -15,8 +15,9 @@ import {
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const ssr = dev || !building;
-export const csr = dev || !building;
+export const prerender = false;
+export const ssr = dev;
+export const csr = dev;
 
 export const load: PageServerLoad = (
   e

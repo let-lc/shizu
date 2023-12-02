@@ -4,7 +4,7 @@ import { getServerById, readPingRecord } from '$lib/helpers/data';
 
 import type { PageServerLoad } from './$types';
 
-export const ssr = true;
+export const prerender = true;
 
 export const load: PageServerLoad = async (event) => {
   const server = getServerById(event.params.id);
