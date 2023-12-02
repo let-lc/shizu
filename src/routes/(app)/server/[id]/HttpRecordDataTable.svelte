@@ -8,7 +8,7 @@
   import type { HttpPingRecordType } from '$lib/types';
   import { cn } from '$lib/utils';
 
-  import ResultChart from './ResultChart.svelte';
+  import EventChart from './EventChart.svelte';
 
   export let records: Array<HttpPingRecordType>;
 </script>
@@ -21,15 +21,15 @@
       <Table.Head class="text-center">Min Response Time</Table.Head>
       <Table.Head class="text-center">Max Response Time</Table.Head>
       <Table.Head class="text-center">Avg Response Time</Table.Head>
-      <Table.Head class="text-center">Records</Table.Head>
+      <Table.Head class="text-center">Events</Table.Head>
     </Table.Row>
   </Table.Header>
   <Table.Body>
     {#each records as item}
       <Collapsible.Root asChild let:builder>
         {@const open = builder['data-state'] === 'open'}
-        {@const successes = item.result.reduce((c, { success: s }) => c + +s, 0)}
-        {@const errors = item.result.length - successes}
+        {@const successes = item.events.reduce((c, { success: s }) => c + +s, 0)}
+        {@const errors = item.events.length - successes}
         <Table.Row>
           <Table.Cell>{dayjs(item.ranAt).format('YYYY-MM-DD HH:mm:ss')}</Table.Cell>
           <Table.Cell class="text-center">
@@ -61,7 +61,7 @@
                 <Table.Root>
                   <Table.Caption>
                     Total:
-                    <span class="text-blue-500">{item.result.length}</span>
+                    <span class="text-blue-500">{item.events.length}</span>
                     / Success:
                     <span class="text-green-500">{successes}</span>
                     / Error:
@@ -77,25 +77,25 @@
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {#each item.result as res, idx}
+                    {#each item.events as event, idx}
                       <Table.Row>
                         <Table.Cell class="text-center">{idx + 1}</Table.Cell>
-                        <Table.Cell class="text-center">{res.success ? 'Yes' : 'No'}</Table.Cell>
-                        <Table.Cell class="text-center">{res.status}</Table.Cell>
+                        <Table.Cell class="text-center">{event.success ? 'Yes' : 'No'}</Table.Cell>
+                        <Table.Cell class="text-center">{event.status}</Table.Cell>
                         <Table.Cell class="text-center">
-                          {#if res.success}
-                            <span class="text-green-500">{res.time}</span>
+                          {#if event.success}
+                            <span class="text-green-500">{event.time}</span>
                             <i>ms</i>
                           {:else}
                             -
                           {/if}
                         </Table.Cell>
                         <Table.Cell class="whitespace-pre text-center">
-                          {#if res.success}
+                          {#if event.success}
                             -
                           {:else}
                             <span class="text-red-500">
-                              {`${res.error.name}\n${res.error.message}`}
+                              {event.error.name}<br />{event.error.message}
                             </span>
                           {/if}
                         </Table.Cell>
@@ -103,7 +103,7 @@
                     {/each}
                   </Table.Body>
                 </Table.Root>
-                <ResultChart data={item.result} />
+                <EventChart data={item.events} />
               </div>
             </Table.Cell>
           </Table.Row>

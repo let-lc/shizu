@@ -4,34 +4,18 @@ import { join } from 'path';
 import {
   Configuration,
   type ConfigurationType,
+  HttpPingRecord,
   type HttpPingRecordType,
   type ServerConfigType,
+  TcpPingRecord,
   type TcpPingRecordType,
   type ValueFromType,
 } from '$lib/types';
 
-const GH_WORKFLOW_FOLDER = '.github/workflows';
-const GH_TEMPLATE_FOLDER = './templates';
-const DATA_FOLDER = './data';
-const CONFIG_PATH = join(DATA_FOLDER, 'config.json');
-const INIT_CONFIG: ConfigurationType = { buildCron: '0 0 * * *', servers: [] };
-
-/**
- * Initialize data folder and configuration.
- */
-export const initialization = () => {
-  if (!existsSync(DATA_FOLDER)) {
-    mkdirSync(DATA_FOLDER);
-  }
-
-  if (!existsSync(CONFIG_PATH)) {
-    writeFileSync(CONFIG_PATH, JSON.stringify(INIT_CONFIG, null, 2));
-  }
-
-  if (!existsSync(GH_WORKFLOW_FOLDER)) {
-    mkdirSync(GH_WORKFLOW_FOLDER, { recursive: true });
-  }
-};
+export const GH_WORKFLOW_FOLDER = '.github/workflows';
+export const GH_TEMPLATE_FOLDER = './templates';
+export const DATA_FOLDER = './data';
+export const CONFIG_PATH = join(DATA_FOLDER, 'config.json');
 
 /**
  * Get configuration from `config.json` file.
@@ -104,8 +88,8 @@ export const getServerList = () => {
     records: (() => {
       return readPingRecord(s.id).map((record) => {
         return (
-          record.result.reduce((count, { success }) => count + +success, 0) /
-          record.result.length
+          record.events.reduce((count, { success }) => count + +success, 0) /
+          record.events.length
         );
       });
     })(),
@@ -152,6 +136,14 @@ export const createBuildWorkflow = () => {
     join(GH_TEMPLATE_FOLDER, 'build-template.yml')
   ).toString();
   template = template.replace(fmtHolder('cron'), config.buildCron);
+
+  if (!config.basePath) {
+    template = template.replace(
+      '\n        env:\n          base_path: ${{ secrets.base_path }}',
+      ''
+    );
+  }
+
   writeFileSync(join(GH_WORKFLOW_FOLDER, 'build.yml'), template);
 };
 
@@ -187,7 +179,30 @@ export const readPingRecord = (
   id: string
 ): Array<TcpPingRecordType> | Array<HttpPingRecordType> => {
   const recordFile = join(DATA_FOLDER, id, 'record.json');
-  return existsSync(recordFile)
-    ? JSON.parse(readFileSync(recordFile).toString())
-    : [];
+
+  if (existsSync(recordFile)) {
+    const record = JSON.parse(readFileSync(recordFile).toString());
+    if (Array.isArray(record)) {
+      if (record.length > 0) {
+        switch (record[0]?.type) {
+          case 'http': {
+            record.forEach((item) => HttpPingRecord.parse(item));
+            return record;
+          }
+          case 'tcp': {
+            record.forEach((item) => TcpPingRecord.parse(item));
+            return record;
+          }
+          default:
+            throw new Error(`Invalid record type: "${record[0]?.type}"`);
+        }
+      } else {
+        return [];
+      }
+    } else {
+      throw new Error('Invalid record data.');
+    }
+  } else {
+    return [];
+  }
 };

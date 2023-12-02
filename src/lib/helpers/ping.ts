@@ -37,7 +37,7 @@ export const tcpPingAsync = ({ host, port, attempts = 4 }: TcpPingOptions) => {
           max: _.round(data.max, 4),
           avg: _.round(data.avg, 4),
         },
-        result: data.results.map((result) => {
+        events: data.results.map((result) => {
           return typeof result.err !== 'undefined'
             ? {
                 success: false,
@@ -85,7 +85,7 @@ export const httpPingAsync = async ({
     ranAt: Date.now(),
     method: method,
     time: { min: Number.MAX_SAFE_INTEGER, max: 0, avg: 0 },
-    result: [],
+    events: [],
   };
 
   for (let i = 0; i < attempts; i++) {
@@ -96,9 +96,9 @@ export const httpPingAsync = async ({
         const time = Number(process.hrtime.bigint() - start) / 1e6;
 
         if (checkValidStatus(status, expectStatus)) {
-          record.result.push({ success: true, status, time });
+          record.events.push({ success: true, status, time });
         } else {
-          record.result.push({
+          record.events.push({
             success: false,
             status,
             error: {
@@ -113,9 +113,9 @@ export const httpPingAsync = async ({
         const status = err.response?.status as number;
 
         if (checkValidStatus(status, expectStatus)) {
-          record.result.push({ success: true, status, time });
+          record.events.push({ success: true, status, time });
         } else {
-          record.result.push({
+          record.events.push({
             success: false,
             status: status ?? null,
             error: {
@@ -130,17 +130,17 @@ export const httpPingAsync = async ({
   let sum = 0;
   let success = 0;
 
-  for (const result of record.result) {
-    if (result.success) {
+  for (const events of record.events) {
+    if (events.success) {
       success++;
-      sum += result.time;
+      sum += events.time;
 
-      if (result.time < record.time.min) {
-        record.time.min = result.time;
+      if (events.time < record.time.min) {
+        record.time.min = events.time;
       }
 
-      if (result.time > record.time.max) {
-        record.time.max = result.time;
+      if (events.time > record.time.max) {
+        record.time.max = events.time;
       }
     }
   }

@@ -13,10 +13,13 @@ const config = {
         : adapterStatic({
             pages: 'build',
             assets: 'build',
-            fallback: undefined,
-            precompress: true,
+            fallback: '404.html',
+            precompress: false,
             strict: true,
           }),
+    paths: {
+      base: process.env?.BASE_PATH || "",
+    },
     alias: {
       $data: 'data',
     },

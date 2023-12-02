@@ -84,3 +84,34 @@ export const isValidStatusList = (val: string, ctx: z.RefinementCtx) => {
     set.add(item);
   }
 };
+
+export const isValidBasePath = (val: string, ctx: z.RefinementCtx) => {
+  if (val === '') {
+    return z.NEVER;
+  }
+
+  if (val === '/') {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message:
+        '"/" is not needed if you don\'t have a base path, just set it to empty.',
+    });
+    return z.NEVER;
+  }
+
+  if (val[0] !== '/') {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Base path need to start with /.',
+    });
+    return z.NEVER;
+  }
+
+  if (val[val.length - 1] === '/') {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Base path cannot end with /.',
+    });
+    return z.NEVER;
+  }
+};

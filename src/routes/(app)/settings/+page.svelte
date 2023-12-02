@@ -1,7 +1,7 @@
 <script lang="ts">
+  import * as Form from '$lib/components/ui/form';
   import { configFormSchema } from '$lib/types';
   import { cn } from '$lib/utils';
-  import * as Form from '$lib/components/ui/form';
 
   import ItemInput from '../new/[serverType]/ItemInput.svelte';
   import type { PageServerData } from './$types';
@@ -33,6 +33,9 @@
 >
   <Form.Field {config} name="buildCron">
     <ItemInput label="Build Cron" />
+  </Form.Field>
+  <Form.Field {config} name="basePath">
+    <ItemInput label="Base Path" />
   </Form.Field>
   <div class="mt-4 flex gap-2 border-t pt-4">
     <Form.Button formaction="?/update">Update</Form.Button>
