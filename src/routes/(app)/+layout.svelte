@@ -2,17 +2,18 @@
   import { IconMoon, IconPlus, IconSettings, IconSun } from '@tabler/icons-svelte';
   import { resetMode, setMode, userPrefersMode } from 'mode-watcher';
 
-  import { cn } from '$lib/utils';
   import { dev } from '$app/environment';
+  import { base } from '$app/paths';
   import { Button } from '$lib/components/ui/button';
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+  import { cn } from '$lib/utils';
 </script>
 
 <header
   class="sticky top-0 z-50 w-full border-b bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60"
 >
   <div class="container flex h-14 items-center justify-between">
-    <a href="/" class="mr-6 flex items-center space-x-2">
+    <a href="{base}/" class="mr-6 flex items-center space-x-2">
       <img
         class="h-6 w-6 [content:url(/img/logo-dark.png)] dark:[content:url(/img/logo-light.png)]"
         alt="Shizu Logo"
@@ -22,13 +23,13 @@
 
     <div class="space-x-1">
       {#if dev}
-        <a href="/new">
+        <a href="{base}/new">
           <Button variant="outline" class="w-9 px-0">
             <IconPlus class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
             <span class="sr-only">Add new site</span>
           </Button>
         </a>
-        <a href="/settings">
+        <a href="{base}/settings">
           <Button variant="outline" class="w-9 px-0">
             <IconSettings class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
             <span class="sr-only">Add new site</span>

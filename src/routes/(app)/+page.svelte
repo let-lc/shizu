@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { Badge } from '$lib/components/ui/badge';
   import * as Card from '$lib/components/ui/card';
   import { SERVER_TYPE_COLOR } from '$lib/constants';
@@ -30,7 +31,7 @@
             {server.serverType.toUpperCase()}
           </Badge>
           <Card.Title>
-            <a href={`/server/${server.id}`} class="truncate pl-0.5 hover:underline">
+            <a href="{base}/server/{server.id}" class="truncate pl-0.5 hover:underline">
               {server.name}
             </a>
           </Card.Title>

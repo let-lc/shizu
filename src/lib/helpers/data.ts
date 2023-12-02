@@ -136,6 +136,14 @@ export const createBuildWorkflow = () => {
     join(GH_TEMPLATE_FOLDER, 'build-template.yml')
   ).toString();
   template = template.replace(fmtHolder('cron'), config.buildCron);
+
+  if (!config.basePath) {
+    template = template.replace(
+      '\n        env:\n          base_path: ${{ secrets.base_path }}',
+      ''
+    );
+  }
+
   writeFileSync(join(GH_WORKFLOW_FOLDER, 'build.yml'), template);
 };
 

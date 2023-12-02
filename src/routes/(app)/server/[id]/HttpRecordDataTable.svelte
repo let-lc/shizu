@@ -95,7 +95,7 @@
                             -
                           {:else}
                             <span class="text-red-500">
-                              {`${event.error.name}\n${event.error.message}`}
+                              {event.error.name}<br />{event.error.message}
                             </span>
                           {/if}
                         </Table.Cell>

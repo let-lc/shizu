@@ -1,6 +1,7 @@
 <script lang="ts">
   import { IconChevronLeft } from '@tabler/icons-svelte';
 
+  import { base } from '$app/paths';
   import { page } from '$app/stores';
   import { Badge } from '$lib/components/ui/badge';
   import { Button } from '$lib/components/ui/button';
@@ -20,7 +21,7 @@
 <Card.Root>
   <Card.Header>
     <Card.Title class="flex items-center gap-x-2">
-      <a href={`/server/${$page.params.id}`}>
+      <a href="{base}/server/{$page.params.id}">
         <Button variant="ghost" size="sm">
           <IconChevronLeft />
         </Button>

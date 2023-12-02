@@ -4,6 +4,7 @@
   import dayjs from 'dayjs';
 
   import { dev } from '$app/environment';
+  import { base } from '$app/paths';
   import { page } from '$app/stores';
   import { Badge } from '$lib/components/ui/badge';
   import { Button } from '$lib/components/ui/button';
@@ -31,7 +32,7 @@
     {data.server.name || data.server.id}
   </h2>
   {#if dev}
-    <a href={`${$page.url.pathname}/edit`}>
+    <a href="{base}{$page.url.pathname}/edit">
       <Button variant="default">Edit</Button>
     </a>
   {/if}
@@ -89,11 +90,11 @@
             <HoverCard.Root openDelay={0} closeDelay={0} positioning={{ placement: 'top' }}>
               <HoverCard.Trigger>
                 <div
-                  style={`--status-color: ${statusColor}`}
+                  style="--status-color: {statusColor}"
                   class="aspect-square h-8 w-2 rounded-xl bg-[--status-color]"
                 />
               </HoverCard.Trigger>
-              <HoverCard.Content class="w-max" style={`--status-color: ${statusColor}`}>
+              <HoverCard.Content class="w-max" style="--status-color: {statusColor}">
                 <p class="whitespace-nowrap text-center text-xs">
                   {dayjs(ranAt).format('YYYY-MM-DD HH:mm:ss')}
                 </p>
@@ -103,7 +104,7 @@
                   </span>
                   <div class="relative flex h-0.5 flex-grow gap-0.5">
                     <div
-                      style={`--percent:${percent * 100}%`}
+                      style="--percent:{percent * 100}%"
                       class="h-full w-[--percent] flex-shrink-0 rounded bg-green-500"
                     />
                     <div class="h-full w-full flex-grow rounded bg-red-500" />

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { isCron, isHost, isValidStatusList } from '$lib/utils';
+import { isCron, isHost, isValidBasePath, isValidStatusList } from '$lib/utils';
 
 /**
  * HTTP method.
@@ -144,6 +144,10 @@ export const Configuration = z.object({
    * Cron expression for build workflow
    */
   buildCron: z.string().refine(isCron, 'Not a valid cron expression.'),
+  /**
+   * Base path for production.
+   */
+  basePath: z.string().default('').superRefine(isValidBasePath),
   /**
    * Server configuration list.
    */
