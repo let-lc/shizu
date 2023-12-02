@@ -45,13 +45,14 @@
           <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
           {#each { length: 72 } as _, i}
             {@const reversedRecord = server.records.reverse()}
+            {@const hasStatus = i < reversedRecord.length}
             {@const statusColor = getStatusColor(reversedRecord[i])}
             <div
               data-value={reversedRecord?.[i]}
-              style={`--status-color: ${statusColor}`}
+              style={hasStatus ? `--status-color: ${statusColor}` : undefined}
               class={cn(
                 'aspect-square h-4 w-1 rounded-xl',
-                i >= reversedRecord.length ? 'bg-muted' : 'bg-[--status-color]'
+                hasStatus ? 'bg-[--status-color]' : 'bg-muted'
               )}
             />
           {/each}
