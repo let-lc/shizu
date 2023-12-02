@@ -13,8 +13,8 @@ const config = {
         : adapterStatic({
             pages: 'build',
             assets: 'build',
-            fallback: undefined,
-            precompress: true,
+            fallback: '404.html',
+            precompress: false,
             strict: true,
           }),
     alias: {
