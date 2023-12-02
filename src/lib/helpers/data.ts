@@ -12,28 +12,10 @@ import {
   type ValueFromType,
 } from '$lib/types';
 
-const GH_WORKFLOW_FOLDER = '.github/workflows';
-const GH_TEMPLATE_FOLDER = './templates';
-const DATA_FOLDER = './data';
-const CONFIG_PATH = join(DATA_FOLDER, 'config.json');
-const INIT_CONFIG: ConfigurationType = { buildCron: '0 0 * * *', servers: [] };
-
-/**
- * Initialize data folder and configuration.
- */
-export const initialization = () => {
-  if (!existsSync(DATA_FOLDER)) {
-    mkdirSync(DATA_FOLDER);
-  }
-
-  if (!existsSync(CONFIG_PATH)) {
-    writeFileSync(CONFIG_PATH, JSON.stringify(INIT_CONFIG, null, 2));
-  }
-
-  if (!existsSync(GH_WORKFLOW_FOLDER)) {
-    mkdirSync(GH_WORKFLOW_FOLDER, { recursive: true });
-  }
-};
+export const GH_WORKFLOW_FOLDER = '.github/workflows';
+export const GH_TEMPLATE_FOLDER = './templates';
+export const DATA_FOLDER = './data';
+export const CONFIG_PATH = join(DATA_FOLDER, 'config.json');
 
 /**
  * Get configuration from `config.json` file.

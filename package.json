@@ -4,11 +4,12 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev --port 3000",
+		"dev": "tsx ./src/lib/helpers/init.ts & vite dev --port 3000",
 		"build": "vite build",
 		"preview": "vite preview --port 3000",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"init": "tsx ./src/lib/helpers/init.ts", 
 		"ping": "tsx ./src/lib/helpers/ping.ts",
 		"lint": "eslint . & prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --check .",
 		"lint:ui": " eslint ./src/lib/components/ui & prettier --plugin prettier-plugin-svelte --plugin prettier-plugin-tailwindcss --check ./src/lib/components/ui",
