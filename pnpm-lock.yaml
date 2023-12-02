@@ -68,8 +68,8 @@ devDependencies:
     specifier: ^1.27.6
     version: 1.27.6(svelte@4.2.4)(vite@4.5.0)
   '@tabler/icons-svelte':
-    specifier: ^2.40.0
-    version: 2.40.0(svelte@4.2.4)
+    specifier: ^2.42.0
+    version: 2.42.0(svelte@4.2.4)
   '@types/node':
     specifier: ^20.9.1
     version: 20.9.1
@@ -567,17 +567,17 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tabler/icons-svelte@2.40.0(svelte@4.2.4):
-    resolution: {integrity: sha512-jAw7tbCXqdvvSqGVP97u9JyZt6WaJbFqMrwjXBXtUZ+ZKIJub6q2cVjsdCaWP43SPQsm4mLA0uHzuW+q6kOxJQ==}
+  /@tabler/icons-svelte@2.42.0(svelte@4.2.4):
+    resolution: {integrity: sha512-w+Yo6R7xLBOgyFApAk5SctfFA7TQ+pRvVh+nTHUFJTjn4NZ0PA04lZyldSn1SMww5NT1jqRGdhsVpnn37of3FQ==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:
-      '@tabler/icons': 2.40.0
+      '@tabler/icons': 2.42.0
       svelte: 4.2.4
     dev: true
 
-  /@tabler/icons@2.40.0:
-    resolution: {integrity: sha512-VqKsBSX159cLFTnCzkCmGhZtSPJHNN0lM2sC4xe0HPOfPUnjiex7rDHDdut4oe4iKRecDDpwXwM9BcU6xCPlCg==}
+  /@tabler/icons@2.42.0:
+    resolution: {integrity: sha512-ynV4iaC1c1mUhuAr9HRaoq8KrWYmZ0bJEpOh7qTBE+OfdDsdvQUe+0S7FW+DHkJ4RuxQMdO8djrZK7HrUw9YMA==}
     dev: true
 
   /@types/cookie@0.5.4:
