@@ -3,6 +3,9 @@
 	"version": "0.1.2",
 	"type": "module",
 	"private": true,
+	"engines": {
+		"node": ">=21.0.0"
+	},
 	"scripts": {
 		"dev": "tsx ./src/lib/helpers/init.ts & vite dev --port 3000",
 		"build": "vite build",
