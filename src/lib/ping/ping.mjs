@@ -183,20 +183,18 @@ const writePingRecord = (server, record) => {
   const records = [];
 
   if (existsSync(recordFile)) {
-    records.push(...JSON.parse(readFileSync(recordFile).toString()), record);
+    const prevRecords = JSON.parse(readFileSync(recordFile).toString());
+    console.log(`${prevRecords?.length} records previously.`);
+    records.push(...prevRecords, record);
   } else {
+    console.log('First record.');
     records.push(record);
   }
 
-  const notBefore = Date.now() - server.maxRecordHistory;
-  writeFileSync(
-    recordFile,
-    JSON.stringify(
-      records.filter((record) => record.ranAt >= notBefore),
-      null,
-      2
-    )
-  );
+  const notBefore = Date.now() - server.maxRecordHistory * 1000;
+  const filteredRecords = records.filter((record) => record.ranAt >= notBefore);
+  console.log(`${record.length - filteredRecords.length} filtered.`);
+  writeFileSync(recordFile, JSON.stringify(filteredRecords, null, 2));
 };
 
 const main = async () => {
