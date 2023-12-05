@@ -69,7 +69,7 @@ const tcpPingAsync = async ({ host, port, attempts = 4 }) => {
 const checkValidStatus = (statusCode, validStatusList) => {
   return validStatusList.split(',').some((validStatus) => {
     if (validStatus.includes('-')) {
-      const range = validStatus.split('-').map(parseInt);
+      const range = validStatus.split('-').map((n) => parseInt(n, 10));
       return range[0] <= statusCode && statusCode <= range[1];
     } else {
       return parseInt(validStatus) === statusCode;
