@@ -81,6 +81,7 @@ const checkValidStatus = (statusCode, validStatusList) => {
 const httpPingAsync = async ({
   method = 'GET',
   url,
+  body = '',
   attempts = 1,
   expectStatus = '200-299',
 }) => {
@@ -92,11 +93,19 @@ const httpPingAsync = async ({
     time: { min: Number.MAX_SAFE_INTEGER, max: 0, avg: 0 },
     events: [],
   };
+  /** @type { RequestInfo } */
+  const requestInfo = { method };
+  if (body) {
+    requestInfo.body = body;
+    requestInfo.headers = {
+      'Content-Type': 'application/json',
+    };
+  }
 
   for (let i = 0; i < attempts; i++) {
     const start = process.hrtime.bigint();
     try {
-      const { status } = await fetch(url, { method });
+      const { status } = await fetch(url, requestInfo);
       const time = Number(process.hrtime.bigint() - start) / 1e6;
 
       if (checkValidStatus(status, expectStatus)) {
@@ -218,6 +227,7 @@ const main = async () => {
       const record = await httpPingAsync({
         method: server.method,
         url: readConfigValue(server.url),
+        body: readConfigValue(server.body),
         attempts: server.pingAttempts,
         expectStatus: server.statusCodes,
       });
