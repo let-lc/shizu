@@ -36,7 +36,7 @@
           </Button>
         </a>
       {/if}
-      <DropdownMenu.Root positioning={{ placement: 'bottom-end' }}>
+      <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild let:builder>
           <Button builders={[builder]} variant="ghost" class="w-9 px-0">
             <IconSun
@@ -48,7 +48,7 @@
             <span class="sr-only">Toggle theme</span>
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
+        <DropdownMenu.Content side="bottom" align="end">
           <DropdownMenu.Item
             class={cn($userPrefersMode === 'light' && 'bg-accent')}
             on:click={() => setMode('light')}>Light</DropdownMenu.Item

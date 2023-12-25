@@ -87,14 +87,14 @@
             {@const failCount = events.length - successCount}
             {@const percent = successCount / events.length}
             {@const statusColor = getStatusColor(percent)}
-            <HoverCard.Root openDelay={0} closeDelay={0} positioning={{ placement: 'top' }}>
+            <HoverCard.Root openDelay={0} closeDelay={0}>
               <HoverCard.Trigger>
                 <div
                   style="--status-color: {statusColor}"
                   class="aspect-square h-8 w-2 rounded-xl bg-[--status-color]"
                 />
               </HoverCard.Trigger>
-              <HoverCard.Content class="w-max" style="--status-color: {statusColor}">
+              <HoverCard.Content class="w-max" style="--status-color: {statusColor}" side="top">
                 <p class="whitespace-nowrap text-center text-xs">
                   {dayjs(ranAt).format('YYYY-MM-DD HH:mm:ss')}
                 </p>
