@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { HTMLAttributes } from 'svelte/elements';
 
-  import { cn } from '$lib/utils/shadcn-utils';
+  import { cn } from '$lib/utils';
 
   type $$Props = HTMLAttributes<HTMLSpanElement>;
 

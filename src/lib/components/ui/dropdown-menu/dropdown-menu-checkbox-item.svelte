@@ -2,7 +2,7 @@
   import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
   import { Check } from 'radix-icons-svelte';
 
-  import { cn } from '$lib/utils/shadcn-utils';
+  import { cn } from '$lib/utils';
 
   type $$Props = DropdownMenuPrimitive.CheckboxItemProps;
   type $$Events = DropdownMenuPrimitive.CheckboxItemEvents;

@@ -2,7 +2,7 @@
   import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
   import { DotFilled } from 'radix-icons-svelte';
 
-  import { cn } from '$lib/utils/shadcn-utils';
+  import { cn } from '$lib/utils';
 
   type $$Props = DropdownMenuPrimitive.RadioItemProps;
   type $$Events = DropdownMenuPrimitive.RadioItemEvents;

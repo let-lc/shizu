@@ -2,7 +2,7 @@
   import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui';
   import { ChevronRight } from 'radix-icons-svelte';
 
-  import { cn } from '$lib/utils/shadcn-utils';
+  import { cn } from '$lib/utils';
 
   type $$Props = DropdownMenuPrimitive.SubTriggerProps & {
     inset?: boolean;
@@ -16,7 +16,7 @@
 
 <DropdownMenuPrimitive.SubTrigger
   class={cn(
-    'flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-accent data-[state=open]:bg-accent',
+    'flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-accent data-[state=open]:bg-accent data-[highlighted]:text-accent-foreground data-[state=open]:text-accent-foreground',
     inset && 'pl-8',
     className
   )}
