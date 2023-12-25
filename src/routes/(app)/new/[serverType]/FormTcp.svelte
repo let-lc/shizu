@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { SuperValidated } from 'sveltekit-superforms';
 
-  import { type TcpFormSchema, tcpFormSchema } from '$lib/types';
   import * as Card from '$lib/components/ui/card';
   import * as Form from '$lib/components/ui/form';
+  import { type TcpFormSchema, tcpFormSchema } from '$lib/types';
 
   import FieldAttempts from './FieldAttempts.svelte';
   import FieldPingCron from './FieldPingCron.svelte';
