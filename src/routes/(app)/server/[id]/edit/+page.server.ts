@@ -63,7 +63,7 @@ export const actions: Actions = {
     if (serverWorkflowExist(event.params?.id)) {
       removeServerWorkflow(event.params.id);
     }
-    throw redirect(303, '/');
+    redirect(303, '/');
   },
   workflow: async (event) => {
     if (serverWorkflowExist(event.params?.id)) {

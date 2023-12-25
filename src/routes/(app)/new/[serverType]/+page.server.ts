@@ -46,7 +46,7 @@ export const actions: Actions = {
       return fail(400, { form });
     } else {
       addNewServer(form.data);
-      throw redirect(303, `/server/${form.data.id}/edit`);
+      redirect(303, `/server/${form.data.id}/edit`);
     }
   },
   tcp: async (event) => {
@@ -56,7 +56,7 @@ export const actions: Actions = {
       return fail(400, { form });
     } else {
       addNewServer(form.data);
-      throw redirect(303, `/server/${form.data.id}/edit`);
+      redirect(303, `/server/${form.data.id}/edit`);
     }
   },
 };
