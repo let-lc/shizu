@@ -4,7 +4,7 @@
 
   import * as Select from '$lib/components/ui/select';
 
-  type $$Props = SelectPrimitive.Props;
+  type $$Props = SelectPrimitive.Props<unknown>;
   const { setValue, name, value } = getFormField();
   export let onSelectedChange: $$Props['onSelectedChange'] = undefined;
 </script>

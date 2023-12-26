@@ -1,5 +1,4 @@
 import Root from './input.svelte';
-import NumberInput from './number-input.svelte';
 
 type FormInputEvent<T extends Event = Event> = T & {
   currentTarget: EventTarget & HTMLInputElement;
@@ -22,6 +21,5 @@ export type InputEvents = {
 export {
   //
   Root as Input,
-  NumberInput,
   Root,
 };

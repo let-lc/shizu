@@ -11,7 +11,6 @@ import Input from './form-input.svelte';
 import Item from './form-item.svelte';
 import Label from './form-label.svelte';
 import NativeSelect from './form-native-select.svelte';
-import NumberInput from './form-number-input.svelte';
 import RadioGroup from './form-radio-group.svelte';
 import Select from './form-select.svelte';
 import SelectTrigger from './form-select-trigger.svelte';
@@ -55,7 +54,6 @@ export {
   Label as FormLabel,
   NativeRadio as FormNativeRadio,
   NativeSelect as FormNativeSelect,
-  NumberInput as FormNumberInput,
   RadioGroup as FormRadioGroup,
   RadioItem as FormRadioItem,
   Select as FormSelect,
@@ -73,7 +71,6 @@ export {
   Label,
   NativeRadio,
   NativeSelect,
-  NumberInput,
   RadioGroup,
   RadioItem,
   Root,
